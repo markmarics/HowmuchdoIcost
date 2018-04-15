@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -22,18 +23,33 @@ public class MainActivity extends AppCompatActivity {
         textView= (TextView) findViewById(R.id.textview);
         dbHandler= new DBHandler(this);
         transaction=new Transaction(1,"kaja","meki",
-                2000,new Date(2018,04,14,14,14),"MCDONALDS",10,null);
+                2000,new Date(),"MCDONALDS",10,null);
 
         StringBuilder stringBuilder = new StringBuilder();
-        dbHandler.insertTransaction(1,"kaja","meki",
-                2000,new Date(2018,04,14,14,14),"MCDONALDS",10,null);
+        if(dbHandler.loadTransactions()==null){
+            if(dbHandler.insertTransaction(transaction)){
+                toastMessage("Data successfully Inserted");
+
+            } else{
+                toastMessage("Something went wrong");
+            }
+        }
         Cursor cursor = dbHandler.loadTransactions();
 
 
-            long id = cursor.getLong(2);
-            String name = cursor.getString(cursor.getColumnIndex("name"));
+        while (cursor.moveToNext()){
+
+            String name = cursor.getString(2);
+
             stringBuilder.append(name).append("\n");
 
-        textView.setText(stringBuilder.toString());
+        }
+        textView.setText(stringBuilder);
+
+
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }

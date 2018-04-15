@@ -3,73 +3,83 @@ package hu.uniobuda.nik.howmuchdoicost.adapters;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import java.util.Date;
+import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
 
-public class DBHandler {
+public class DBHandler extends SQLiteOpenHelper {
 
-    protected final static String DB_NAME = "mydb";
-    protected final static int DB_VERSION = 1;
-    protected final static String TABLE_NAME = "transactions";
+    private final static String DB_NAME = "mydb";
+    private final static int DB_VERSION = 1;
+    private final static String TABLE_NAME = "transactions";
 
-    protected DBHelper dbHelper;
 
-    public DBHandler(Context context){
-        dbHelper = new DBHelper(context);
+
+    public DBHandler(Context context) {
+        super(context, DB_NAME, null, 1);
     }
 
-    public  void insertTransaction(int id, String type, String name, double price, Date date, String place, int rating, String comment){
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public  boolean insertTransaction(Transaction transaction){
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("id",id);
-        cv.put("type",type);
-        cv.put("name",name);
-        cv.put("price",price);
-        cv.put("date",date.toString());
-        cv.put("place",place);
-        cv.put("rating",rating);
-        cv.put("comment",comment);
-        db.insert(TABLE_NAME, null, cv);
-        db.close();
+        cv.put("_id",transaction.getId());
+        cv.put("type",transaction.getType());
+        cv.put("name",transaction.getName());
+        cv.put("price",transaction.getPrice());
+       cv.put("date",transaction.getDate().toString());
+        cv.put("place",transaction.getPlace());
+        cv.put("rating",transaction.getRating());
+        cv.put("comment",transaction.getComment());
+        try{
+            long result = db.insert(TABLE_NAME, null, cv);
+            if(result==-1){
+                return false;
+            }else{
+                return true;
+            }
+        }catch (SQLException e){
+            Log.d("hiba",e.getMessage());
+            return false;
+        }
+
+
+
     }
 
     public Cursor loadTransactions(){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_NAME, null, null, null, null, null, null);
-        result.moveToFirst();
-        db.close();
-        return result;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME,null);
+        return  result;
     }
 
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
 
-    public class DBHelper extends SQLiteOpenHelper {
-
-        public DBHelper(Context context) {
-            super(context, DB_NAME, null, DB_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
-                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "type VARCHAR(255)," +
-                    "name VARCHAR(255)," +
-                    "price FLOAT," +
+            db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "type TEXT," +
+                    "name TEXT," +
+                    "price DOUBLE," +
                     "date DATE," +
-                    "place VARCHAR(255)," +
+                    "place TEXT," +
                     "rating INTEGER," +
-                    "comment VARCHAR(255)"+
+                    "comment TEXT"+
                     ")"
             );
-        }
 
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(sqLiteDatabase);
-        }
+
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            onCreate(db);
+
     }
 }
