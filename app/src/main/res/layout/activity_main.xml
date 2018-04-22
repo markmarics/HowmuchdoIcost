@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hu.uniobuda.nik.howmuchdoicost.MainActivity">
 
+   <android.support.v7.widget.AppCompatImageView
+       android:src="@android:color/darker_gray"
+       android:layout_margin="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="100dp"
+       android:id="@+id/ImageView_logo"/>
+
+   <android.support.v7.widget.AppCompatButton
+       android:id="@+id/Button_add"
+       android:layout_width="wrap_content"
+       android:layout_margin="10dp"
+       android:layout_height="wrap_content"
+       android:text="ADD"
+       android:layout_alignParentStart="true"
+       android:layout_below="@+id/ImageView_logo"/>
+   <android.support.v7.widget.AppCompatButton
+       android:id="@+id/Button_stat"
+       android:layout_width="wrap_content"
+       android:layout_margin="10dp"
+       android:layout_height="wrap_content"
+       android:text="STATISTICS"
+       android:layout_below="@+id/ImageView_logo"
+       android:layout_alignParentEnd="true"/>
 
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
