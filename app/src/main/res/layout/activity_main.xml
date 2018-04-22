@@ -8,7 +8,7 @@
     android:background="#345">
 
    <android.support.v7.widget.AppCompatImageView
-       android:src="@android:color/black"
+       android:src="@drawable/logo"
        android:layout_margin="10dp"
        android:layout_width="match_parent"
        android:layout_height="400dp"
