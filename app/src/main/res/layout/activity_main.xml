@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hu.uniobuda.nik.howmuchdoicost.MainActivity">
+    tools:context="hu.uniobuda.nik.howmuchdoicost.MainActivity"
+    android:background="#345">
 
    <android.support.v7.widget.AppCompatImageView
-       android:src="@android:color/darker_gray"
+       android:src="@drawable/Logo_androprojekt"
        android:layout_margin="10dp"
        android:layout_width="match_parent"
-       android:layout_height="100dp"
+       android:layout_height="400dp"
        android:id="@+id/ImageView_logo"/>
 
    <android.support.v7.widget.AppCompatButton
@@ -29,7 +30,4 @@
        android:text="STATISTICS"
        android:layout_below="@+id/ImageView_logo"
        android:layout_alignParentEnd="true"/>
-
-
-
 </RelativeLayout>
