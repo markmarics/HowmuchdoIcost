@@ -13,8 +13,8 @@ public class Transaction {
     private int rating;
     private String comment;
 
-    public Transaction(int id, String type, String name, double price, Date date, String place, int rating, String comment) {
-        this.id = id;
+    public Transaction(String type, String name, double price, Date date, String place, int rating, String comment) {
+     //   this.id = id;
         this.type = type;
         this.name = name;
         this.price = price;
@@ -32,10 +32,10 @@ public class Transaction {
         return id;
     }
 
-    public void setId(int id) {
+  /*  public void setId(int id) {
         this.id = id;
     }
-
+*/
     public String getType() {
         return type;
     }

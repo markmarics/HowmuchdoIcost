@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
 
@@ -25,14 +26,19 @@ public class DBHandler extends SQLiteOpenHelper {
     public  boolean insertTransaction(Transaction transaction){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("_id",transaction.getId());
-        cv.put("type",transaction.getType());
-        cv.put("name",transaction.getName());
-        cv.put("price",transaction.getPrice());
-        cv.put("date",transaction.getDate().toString());
-        cv.put("place",transaction.getPlace());
-        cv.put("rating",transaction.getRating());
-        cv.put("comment",transaction.getComment());
+        try {
+          //  cv.put("_id", transaction.getId());
+            cv.put("type", transaction.getType());
+            cv.put("name", transaction.getName());
+            cv.put("price", transaction.getPrice());
+            cv.put("date", transaction.getDate().toString());
+            cv.put("place", transaction.getPlace());
+            cv.put("rating", transaction.getRating());
+            cv.put("comment", transaction.getComment());
+        }
+        catch (NullPointerException e) {
+
+        }
         try{
             long result = db.insert(TABLE_NAME, null, cv);
             if(result==-1){

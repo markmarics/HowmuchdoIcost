@@ -107,9 +107,9 @@ public class AddTransactionActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try{
                 DBHandler dbHandler = new DBHandler(AddTransactionActivity.this);
                 Transaction transaction = new Transaction();
-                     transaction.setId(8);
                 transaction.setName(nameEditText.getText().toString());
                 transaction.setDate(new Date(2015, 04, 24));
                 transaction.setPlace(mDisplayPlace.getText().toString());
@@ -118,10 +118,14 @@ public class AddTransactionActivity extends AppCompatActivity {
                 transaction.setPrice(Integer.parseInt(priceEditText.getText().toString()));
 
 
+
                 if ( dbHandler.insertTransaction(transaction)){
                     Toast.makeText(AddTransactionActivity.this, "done", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddTransactionActivity.this, "szar", Toast.LENGTH_SHORT).show();
+                }}
+                catch (NumberFormatException e){
+                    Toast.makeText(AddTransactionActivity.this, "aggyá meg mindig valamit", Toast.LENGTH_SHORT).show();
                 }
             }
         });
