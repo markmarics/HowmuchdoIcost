@@ -67,5 +67,12 @@
         android:layout_margin="10dp"
         />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Mentés"
+        />
 
 </LinearLayout>

@@ -29,7 +29,7 @@ public class DBHandler extends SQLiteOpenHelper {
         cv.put("type",transaction.getType());
         cv.put("name",transaction.getName());
         cv.put("price",transaction.getPrice());
-       cv.put("date",transaction.getDate().toString());
+        cv.put("date",transaction.getDate().toString());
         cv.put("place",transaction.getPlace());
         cv.put("rating",transaction.getRating());
         cv.put("comment",transaction.getComment());
@@ -59,17 +59,17 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "type TEXT," +
-                    "name TEXT," +
-                    "price DOUBLE," +
-                    "date DATE," +
-                    "place TEXT," +
-                    "rating INTEGER," +
-                    "comment TEXT"+
-                    ")"
-            );
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "type TEXT," +
+                "name TEXT," +
+                "price DOUBLE," +
+                "date DATE," +
+                "place TEXT," +
+                "rating INTEGER," +
+                "comment TEXT"+
+                ")"
+        );
 
 
 
@@ -78,8 +78,8 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
 
     }
 }
