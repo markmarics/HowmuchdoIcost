@@ -21,12 +21,20 @@ public class StatisticsActivity extends AppCompatActivity {
 
     ListView transactionListView;
     ArrayAdapter<String> adapter;
+    //Button chartButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         transactionListView = findViewById(R.id.transactionListView);
-
+       /*  chartButton=findViewById(R.id.chartbutton);
+            chartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StatisticsActivity.this,ChartActivity.class);
+                startActivity(intent);
+            }
+        });*/
         DBAdapter db = new DBAdapter(this);
         ArrayList<Transaction> translist = db.loadTransactions();
 

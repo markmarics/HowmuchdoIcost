@@ -22,7 +22,14 @@
         style="@style/Gombok"
         android:layout_height="wrap_content"
         android:visibility="visible"
+        android:layout_weight="2"
         />
-
-
+<!--
+    <Button
+        android:id="@+id/chartbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Gombok"
+        android:text="Chart"/>
+        -->
 </LinearLayout>
