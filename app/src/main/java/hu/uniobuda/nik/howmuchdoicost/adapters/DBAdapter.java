@@ -21,8 +21,22 @@ public class DBAdapter {
         return db.insertTransaction(transaction);
     }
 
-    public Cursor loadTransactions(){
+    public ArrayList<Transaction> loadTransactions(){
         Cursor dbTransactions = db.loadTransactions();
-        return dbTransactions;
+        ArrayList<Transaction> tempTrans = new ArrayList<>();
+        dbTransactions.moveToFirst();
+        while (!dbTransactions.isAfterLast()){
+            tempTrans.add(new Transaction(dbTransactions.getString(dbTransactions.getColumnIndex("type")),
+                    dbTransactions.getString(dbTransactions.getColumnIndex("name")),
+                    dbTransactions.getDouble(dbTransactions.getColumnIndex("price")),
+                    dbTransactions.getString(dbTransactions.getColumnIndex("date")),
+                    dbTransactions.getString(dbTransactions.getColumnIndex("place")),
+                    dbTransactions.getInt(dbTransactions.getColumnIndex("rating")),
+                    dbTransactions.getString(dbTransactions.getColumnIndex("comment"))
+                    ));
+            dbTransactions.moveToNext();
+        }
+
+        return tempTrans;
     }
 }

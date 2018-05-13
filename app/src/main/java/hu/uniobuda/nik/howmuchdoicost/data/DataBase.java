@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Date;
+
 import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
 
 public class DataBase {
@@ -54,25 +56,26 @@ public class DataBase {
         return success;
     }
 
-   /* public boolean updateTransaction(long id, String newType,String newName,int newPrice,
-                                     Date newDate, newPlace, newRating, newComment){
+    public boolean updateTransaction(long id, String newType, String newName, int newPrice,
+                                     Date newDate, String newPlace, int newRating, String newComment){
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         try {
             //  cv.put("_id", transaction.getId());
-            cv.put("type", transaction.getType());
-            cv.put("name", transaction.getName());
-            cv.put("price", transaction.getPrice());
-            cv.put("date", transaction.getDate().toString());
-            cv.put("place", transaction.getPlace());
-            cv.put("rating", transaction.getRating());
-            cv.put("comment", transaction.getComment());
+            cv.put("type", newType);
+            cv.put("name", newName);
+            cv.put("price", newPrice);
+            cv.put("date", newDate.toString());
+            cv.put("place", newPlace);
+            cv.put("rating", newRating);
+            cv.put("comment", newComment);
         }
         catch (NullPointerException e) {
 
         }
-
-    }*/
+        boolean success = sqLiteDatabase.update("TABLE_NAME_TRANSACTIONS",cv," id = " + id,null)>0;
+        return success;
+    }
     public  boolean insertTransaction(Transaction transaction){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -108,6 +111,8 @@ public class DataBase {
     public Cursor loadTransactions(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME_TRANSACTIONS,null);
+        result.moveToFirst();
+        db.close();
         return  result;
     }
 
@@ -129,7 +134,7 @@ public class DataBase {
                     "type TEXT," +
                     "name TEXT," +
                     "price DOUBLE," +
-                    "date DATE," +
+                    "date TEXT," +
                     "place TEXT," +
                     "rating INTEGER," +
                     "comment TEXT"+

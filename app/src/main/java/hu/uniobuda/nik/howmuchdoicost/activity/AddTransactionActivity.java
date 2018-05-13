@@ -45,15 +45,15 @@ public class AddTransactionActivity extends AppCompatActivity {
     EditText priceEditText;
     Button saveButton, newCategoryButton;
 
-    private TextView mDisplayDate, mDisplayPlace;
+    private TextView dateTextView, mDisplayPlace;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    Date date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
-        //mDisplayDate = (TextView) findViewById(R.id.textviewDate);
-        mDisplayDate = findViewById(R.id.textviewDate);
+        //dateTextView = (TextView) findViewById(R.id.textviewDate);
+        dateTextView = findViewById(R.id.textviewDate);
         mDisplayPlace = findViewById(R.id.textviewPlace);
 
     //    typeEditText = findViewById(R.id.editTextType);
@@ -63,7 +63,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         newCategoryButton = findViewById(R.id.newCategoryButton);
 
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+        dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -76,15 +76,15 @@ public class AddTransactionActivity extends AppCompatActivity {
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener,year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+           //     dialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", (DialogInterface.OnClickListener) mDateSetListener);
             }
         });
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-              //  date = new Date(year,month,dayOfMonth);
                 String date = new DateFormatSymbols().getMonths()[month]+"-"+Integer.toString(dayOfMonth)+"-"+Integer.toString(year);
-                mDisplayDate.setText(date);
+                dateTextView.setText(date);
             }
         };
 
@@ -113,7 +113,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 DBAdapter dbAdapter = new DBAdapter(AddTransactionActivity.this);
                 Transaction transaction = new Transaction();
                 transaction.setName(nameEditText.getText().toString());
-                transaction.setDate(new Date(2015, 04, 24));
+                transaction.setDate(dateTextView.getText().toString());
                 transaction.setPlace(mDisplayPlace.getText().toString());
                 transaction.setRating(3);
                 transaction.setType(typeSpinner.getSelectedItem().toString());

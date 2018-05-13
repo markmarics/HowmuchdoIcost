@@ -8,12 +8,12 @@ public class Transaction {
     private String type;
     private String name;
     private double price;
-    private Date date;
+    private String date;
     private String place;
     private int rating;
     private String comment;
 
-    public Transaction(String type, String name, double price, Date date, String place, int rating, String comment) {
+    public Transaction(String type, String name, double price, String date, String place, int rating, String comment) {
      //   this.id = id;
         this.type = type;
         this.name = name;
@@ -60,11 +60,11 @@ public class Transaction {
         this.price = price;
     }
 
-    public Date getDate() {
+    public String  getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
