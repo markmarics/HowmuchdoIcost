@@ -12,11 +12,12 @@ import android.widget.Toast;
 import java.util.Date;
 
 import hu.uniobuda.nik.howmuchdoicost.activity.AddTransactionActivity;
+import hu.uniobuda.nik.howmuchdoicost.activity.StatisticsActivity;
 import hu.uniobuda.nik.howmuchdoicost.adapters.DBHandler;
 import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
 
 public class MainActivity extends AppCompatActivity {
-    private Button buttonTrans;
+    private Button buttonTrans, buttonStat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +25,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonTrans = (Button)findViewById(R.id.Button_add);
+        buttonStat = (Button)findViewById(R.id.Button_stat);
+
         buttonTrans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openTransactionActivity();
+            }
+        });
+
+        buttonStat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openStatisticsActivity();
             }
         });
 
@@ -37,5 +47,10 @@ public class MainActivity extends AppCompatActivity {
     public void openTransactionActivity(){
         Intent AddTransActivity = new Intent(this, AddTransactionActivity.class);
         startActivity(AddTransActivity);
+    }
+
+    public void openStatisticsActivity(){
+        Intent StatisticsActivity = new Intent(this, StatisticsActivity.class);
+        startActivity(StatisticsActivity);
     }
 }
