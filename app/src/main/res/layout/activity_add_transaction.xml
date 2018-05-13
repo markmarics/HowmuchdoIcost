@@ -54,6 +54,15 @@
         android:inputType="number"
         android:layout_margin="10dp"/>
 
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/editTextComment"
+        android:hint="Comment"
+        android:textAlignment="textEnd"
+        android:layout_width="match_parent"
+        style="@style/Gombok"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
+
     <RatingBar
         android:id="@+id/rating"
         android:layout_width="wrap_content"
