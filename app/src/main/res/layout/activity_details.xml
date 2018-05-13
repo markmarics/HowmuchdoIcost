@@ -24,16 +24,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"/>-->
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/spinnerAllTypes"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textViewTypes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Gombok"
+        android:gravity="right"
         android:layout_margin="10dp"
-        android:textColor="@android:color/white"
         />
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/editTextName"
         android:hint="@string/label"
         android:textAlignment="textEnd"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/editTextPrice"
         android:hint="@string/cost"
         android:textAlignment="textEnd"
@@ -52,7 +52,7 @@
         android:inputType="number"
         android:layout_margin="10dp"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/editTextComment"
         android:hint="Comment"
         android:textAlignment="textEnd"
@@ -89,13 +89,5 @@
         android:layout_margin="10dp"
         />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Modify"
-        style="@style/Gombok"
-        />
 
 </LinearLayout>
