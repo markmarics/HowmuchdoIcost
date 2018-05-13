@@ -18,7 +18,7 @@
 
     <ListView
         android:id="@+id/transactionListView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         style="@style/Gombok"
         android:layout_height="wrap_content"
         android:visibility="visible"
