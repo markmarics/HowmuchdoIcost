@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     android:orientation="vertical"
     tools:context=".activity.AddTransactionActivity">
 
@@ -13,7 +14,7 @@
         android:text="@string/transaction"
         android:gravity="center_horizontal"
         android:textSize="20sp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/black"
         android:layout_margin="10dp"/>
 
 
@@ -29,13 +30,17 @@
         android:id="@+id/spinnerAllTypes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>
+        style="@style/Gombok"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/white"
+        />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/editTextName"
         android:hint="@string/label"
         android:textAlignment="textEnd"
         android:layout_width="match_parent"
+        style="@style/Gombok"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"/>
 
@@ -45,6 +50,7 @@
         android:textAlignment="textEnd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Gombok"
         android:inputType="number"
         android:layout_margin="10dp"/>
 
@@ -54,7 +60,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/select_date"
         android:textSize="20sp"
-        android:background="@color/colorPrimary"
+        style="@style/Gombok"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         />
@@ -64,8 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/select_place"
-        android:background="@color/colorPrimary"
         android:textSize="20sp"
+        style="@style/Gombok"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         />
@@ -76,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/save"
+        style="@style/Gombok"
         />
 
 </LinearLayout>
