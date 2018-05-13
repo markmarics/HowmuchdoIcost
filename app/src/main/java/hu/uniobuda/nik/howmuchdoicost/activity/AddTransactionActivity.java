@@ -1,17 +1,23 @@
 package hu.uniobuda.nik.howmuchdoicost.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +27,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -36,7 +43,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     Spinner typeSpinner;
     EditText nameEditText;
     EditText priceEditText;
-    Button saveButton;
+    Button saveButton, newCategoryButton;
 
     private TextView mDisplayDate, mDisplayPlace;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -49,11 +56,12 @@ public class AddTransactionActivity extends AppCompatActivity {
         mDisplayDate = findViewById(R.id.textviewDate);
         mDisplayPlace = findViewById(R.id.textviewPlace);
 
-        typeEditText = findViewById(R.id.editTextType);
+    //    typeEditText = findViewById(R.id.editTextType);
         typeSpinner = findViewById(R.id.spinnerAllTypes);
         nameEditText = findViewById(R.id.editTextName);
         priceEditText = findViewById(R.id.editTextPrice);
         saveButton = findViewById(R.id.saveButton);
+        newCategoryButton = findViewById(R.id.newCategoryButton);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +99,9 @@ public class AddTransactionActivity extends AppCompatActivity {
                 try {
                     startActivityForResult(builder.build(AddTransactionActivity.this), PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
-                    Log.d("asdsadc", e.getMessage()) ;
+                    Log.d("Playservices error", e.getMessage()) ;
                 } catch (GooglePlayServicesNotAvailableException e) {
-                    Log.d("asd", e.getMessage()) ;
+                    Log.d("Playservices error", e.getMessage()) ;
                 }
             }
         });
@@ -108,7 +116,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 transaction.setDate(new Date(2015, 04, 24));
                 transaction.setPlace(mDisplayPlace.getText().toString());
                 transaction.setRating(3);
-                transaction.setType(typeEditText.getText().toString());
+                transaction.setType(typeSpinner.getSelectedItem().toString());
                 transaction.setPrice(Integer.parseInt(priceEditText.getText().toString()));
 
 
@@ -117,10 +125,44 @@ public class AddTransactionActivity extends AppCompatActivity {
                     Toast.makeText(AddTransactionActivity.this, "done", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddTransactionActivity.this, "szar", Toast.LENGTH_SHORT).show();
-                }}
+                }
+                }
                 catch (NumberFormatException e){
                     Toast.makeText(AddTransactionActivity.this, "aggyá meg mindig valamit", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+
+        newCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddTransactionActivity.this);
+                builder.setTitle("New category");
+                builder.setMessage("New category name: ");
+                final EditText input = new EditText(AddTransactionActivity.this);
+                builder.setView(input);
+                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ArrayList<String> strings = new ArrayList<>();
+                        strings.add(input.getText().toString());
+                        ArrayAdapter<String> adapter;
+                        adapter = new ArrayAdapter<String>(getBaseContext(),
+                                android.R.layout.simple_spinner_item, strings);
+                        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+                        typeSpinner.setAdapter(adapter);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
 
