@@ -4,8 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,18 +20,12 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
-import hu.uniobuda.nik.howmuchdoicost.MainActivity;
 import hu.uniobuda.nik.howmuchdoicost.R;
-import hu.uniobuda.nik.howmuchdoicost.adapters.DBHandler;
+import hu.uniobuda.nik.howmuchdoicost.adapters.DBAdapter;
 import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
 
 public class AddTransactionActivity extends AppCompatActivity {
@@ -48,11 +40,12 @@ public class AddTransactionActivity extends AppCompatActivity {
 
     private TextView mDisplayDate, mDisplayPlace;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    Date date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
-        mDisplayDate = (TextView) findViewById(R.id.textviewDate);
+        //mDisplayDate = (TextView) findViewById(R.id.textviewDate);
         mDisplayDate = findViewById(R.id.textviewDate);
         mDisplayPlace = findViewById(R.id.textviewPlace);
 
@@ -81,13 +74,14 @@ public class AddTransactionActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+              //  date = new Date(year,month,dayOfMonth);
                 String date = new DateFormatSymbols().getMonths()[month]+"-"+Integer.toString(dayOfMonth)+"-"+Integer.toString(year);
                 mDisplayDate.setText(date);
             }
         };
 
 
-        mDisplayPlace = (TextView) findViewById(R.id.textviewPlace);
+        //mDisplayPlace = (TextView) findViewById(R.id.textviewPlace);
 
         mDisplayPlace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +102,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                DBHandler dbHandler = new DBHandler(AddTransactionActivity.this);
+                DBAdapter dbAdapter = new DBAdapter(AddTransactionActivity.this);
                 Transaction transaction = new Transaction();
                 transaction.setName(nameEditText.getText().toString());
                 transaction.setDate(new Date(2015, 04, 24));
@@ -119,7 +113,7 @@ public class AddTransactionActivity extends AppCompatActivity {
 
 
 
-                if ( dbHandler.insertTransaction(transaction)){
+                if ( dbAdapter.addTransaction(transaction)){
                     Toast.makeText(AddTransactionActivity.this, "done", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddTransactionActivity.this, "szar", Toast.LENGTH_SHORT).show();
