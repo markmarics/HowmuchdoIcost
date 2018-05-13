@@ -2,6 +2,7 @@ package hu.uniobuda.nik.howmuchdoicost.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -16,9 +17,23 @@ public class DBAdapter {
 
     }
 
+    public boolean addType(String type){
+        return db.insertType(type);
+    }
 
     public boolean addTransaction(Transaction transaction){
         return db.insertTransaction(transaction);
+    }
+
+    public ArrayList<String> loadTypes(){
+        Cursor dbTypes = db.loadTypes();
+        ArrayList<String> tempTypes = new ArrayList<>();
+        dbTypes.moveToFirst();
+        while (!dbTypes.isAfterLast()){
+            tempTypes.add(dbTypes.getString(dbTypes.getColumnIndex("type")));
+            dbTypes.moveToNext();
+        }
+        return tempTypes;
     }
 
     public ArrayList<Transaction> loadTransactions(){

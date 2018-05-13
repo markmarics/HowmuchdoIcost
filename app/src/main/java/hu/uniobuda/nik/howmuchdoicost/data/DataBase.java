@@ -116,6 +116,14 @@ public class DataBase {
         return  result;
     }
 
+    public Cursor loadTypes(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME_TYPES,null);
+        result.moveToFirst();
+        db.close();
+        return  result;
+    }
+
     private class DBHelper extends SQLiteOpenHelper {
 
 
@@ -142,7 +150,8 @@ public class DataBase {
             );
 
             db.execSQL("CREATE TABLE " + TABLE_NAME_TYPES + " (" +
-                    "type TEXT PRIMARY KEY" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "type TEXT UNIQUE" +
                     ")"
             );
 

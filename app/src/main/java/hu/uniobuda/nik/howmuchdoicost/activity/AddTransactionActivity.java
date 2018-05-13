@@ -44,10 +44,11 @@ public class AddTransactionActivity extends AppCompatActivity {
     EditText nameEditText;
     EditText priceEditText;
     Button saveButton, newCategoryButton;
+    DBAdapter dbAdapter;
 
     private TextView dateTextView, mDisplayPlace;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
+    private ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,15 @@ public class AddTransactionActivity extends AppCompatActivity {
         priceEditText = findViewById(R.id.editTextPrice);
         saveButton = findViewById(R.id.saveButton);
         newCategoryButton = findViewById(R.id.newCategoryButton);
+        dbAdapter = new DBAdapter(AddTransactionActivity.this);
+        dbAdapter.addType("kaja");
+        dbAdapter.addType("pia");
+   /*     if(dbAdapter.loadTypes()!=null){
+            adapter = new ArrayAdapter<String>(AddTransactionActivity.this,
+                    android.R.layout.simple_spinner_item, dbAdapter.loadTypes());
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            typeSpinner.setAdapter(adapter);
+        }*/
 
         dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +120,6 @@ public class AddTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                DBAdapter dbAdapter = new DBAdapter(AddTransactionActivity.this);
                 Transaction transaction = new Transaction();
                 transaction.setName(nameEditText.getText().toString());
                 transaction.setDate(dateTextView.getText().toString());
@@ -146,14 +155,16 @@ public class AddTransactionActivity extends AppCompatActivity {
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ArrayList<String> strings = new ArrayList<>();
-                        strings.add(input.getText().toString());
-                        ArrayAdapter<String> adapter;
-                        adapter = new ArrayAdapter<String>(getBaseContext(),
-                                android.R.layout.simple_spinner_item, strings);
-                        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                   //     adapter.add(input.getText().toString());
 
-                        typeSpinner.setAdapter(adapter);
+                        if (dbAdapter.addType(input.getText().toString())) {
+
+                            adapter = new ArrayAdapter<String>(AddTransactionActivity.this,
+                                    android.R.layout.simple_spinner_item, dbAdapter.loadTypes());
+                            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+                            typeSpinner.setAdapter(adapter);
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -163,6 +174,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
+
             }
         });
 
