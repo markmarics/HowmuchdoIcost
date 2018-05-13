@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +24,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     ListView transactionListView;
     ArrayAdapter<String> adapter;
-    Button chartButton;
+    AppCompatButton chartButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
