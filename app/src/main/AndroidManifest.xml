@@ -23,6 +23,7 @@
         <activity android:name=".activity.AddTransactionActivity" />
         <activity android:name=".activity.StatisticsActivity" />
         <activity android:name=".activity.ChartActivity" />
+        <activity android:name=".activity.DetailsActivity"></activity>
         <activity android:name=".activity.DateChartActivity"></activity>
     </application>
 

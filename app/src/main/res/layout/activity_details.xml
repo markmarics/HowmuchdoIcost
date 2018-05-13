@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#565454"
     android:orientation="vertical"
-    tools:context=".activity.AddTransactionActivity">
-
+    tools:context="hu.uniobuda.nik.howmuchdoicost.activity.DetailsActivity">
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transaction"
+        android:text="Transtaction details"
         android:gravity="center_horizontal"
         android:textSize="20sp"
-        android:textColor="@android:color/white"
         android:layout_margin="10dp"/>
 
 
-<!--
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editTextType"
-        android:hint="Type"
-        android:textAlignment="textEnd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>-->
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/spinnerAllTypes"
+    <!--
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/editTextType"
+            android:hint="Type"
+            android:textAlignment="textEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"/>-->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textViewTypes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Gombok"
-        android:layout_gravity="right"
+        android:gravity="right"
         android:layout_margin="10dp"
-        android:textColor="@android:color/white"
         />
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/editTextName"
         android:hint="@string/label"
         android:textAlignment="textEnd"
@@ -45,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/editTextPrice"
         android:hint="@string/cost"
         android:textAlignment="textEnd"
@@ -55,7 +52,7 @@
         android:inputType="number"
         android:layout_margin="10dp"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/editTextComment"
         android:hint="Comment"
         android:textAlignment="textEnd"
@@ -74,7 +71,7 @@
         android:id="@+id/textviewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/select_date"
+        android:hint="date"
         android:textSize="20sp"
         style="@style/Gombok"
         android:layout_gravity="center"
@@ -85,20 +82,12 @@
         android:id="@+id/textviewPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/select_place"
+        android:hint="place"
         android:textSize="20sp"
         style="@style/Gombok"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/save"
-        style="@style/Gombok"
-        />
 
 </LinearLayout>

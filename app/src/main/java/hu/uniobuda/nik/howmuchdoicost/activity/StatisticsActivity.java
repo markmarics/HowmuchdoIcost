@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,7 +24,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     ListView transactionListView;
     ArrayAdapter<String> adapter;
-    Button chartButton;
+    AppCompatButton chartButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,17 @@ public class StatisticsActivity extends AppCompatActivity {
 
         adapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,output);
         transactionListView.setAdapter(adapter);
+
+        transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(StatisticsActivity.this, DetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("TRANSACTION_ID", position);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
 }
