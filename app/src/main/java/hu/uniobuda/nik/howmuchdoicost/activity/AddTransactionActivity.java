@@ -43,7 +43,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     EditText typeEditText;
     Spinner typeSpinner;
     EditText nameEditText;
-    EditText priceEditText;
+    EditText priceEditText, commentEditText;
     Button saveButton, newCategoryButton;
     DBAdapter dbAdapter;
     RatingBar ratingBar;
@@ -64,6 +64,8 @@ public class AddTransactionActivity extends AppCompatActivity {
         priceEditText = findViewById(R.id.editTextPrice);
         saveButton = findViewById(R.id.saveButton);
         ratingBar = findViewById(R.id.rating);
+        commentEditText = findViewById(R.id.editTextComment);
+
         dbAdapter = new DBAdapter(AddTransactionActivity.this);
         ArrayList<String> types = new ArrayList<>();
         types.add("food");
@@ -134,6 +136,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 transaction.setRating(Math.round(ratingBar.getRating()));
                 transaction.setType(typeSpinner.getSelectedItem().toString());
                 transaction.setPrice(Integer.parseInt(priceEditText.getText().toString()));
+                transaction.setComment(commentEditText.getText().toString());
                 if ( dbAdapter.addTransaction(transaction)){
                     Toast.makeText(AddTransactionActivity.this, "Sikeres!", Toast.LENGTH_SHORT).show();
                 } else {

@@ -32,7 +32,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         ArrayList<String> output = new ArrayList<>();
         for (Transaction item : translist){
-            output.add(item.getName() + " (" + item.getDate()+ ") " + item.getRating());
+            output.add(item.getName() + " (" + item.getDate()+ ")");
         }
 
         adapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,output);
