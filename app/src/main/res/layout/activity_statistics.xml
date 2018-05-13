@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#565454"
     tools:context="hu.uniobuda.nik.howmuchdoicost.activity.StatisticsActivity">
 
     <android.support.v7.widget.AppCompatTextView
@@ -12,12 +13,13 @@
         android:text="@string/statistics"
         android:gravity="center_horizontal"
         android:textSize="20sp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
         android:layout_margin="10dp"/>
 
     <ListView
         android:id="@+id/transactionListView"
         android:layout_width="wrap_content"
+        style="@style/Gombok"
         android:layout_height="wrap_content"
         android:visibility="visible"
         />

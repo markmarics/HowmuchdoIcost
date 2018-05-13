@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="#565454"
     android:orientation="vertical"
     tools:context=".activity.AddTransactionActivity">
 
@@ -14,7 +14,7 @@
         android:text="@string/transaction"
         android:gravity="center_horizontal"
         android:textSize="20sp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_margin="10dp"/>
 
 

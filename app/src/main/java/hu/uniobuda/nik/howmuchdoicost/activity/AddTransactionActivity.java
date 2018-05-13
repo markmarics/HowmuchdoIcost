@@ -63,11 +63,11 @@ public class AddTransactionActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         dbAdapter = new DBAdapter(AddTransactionActivity.this);
         ArrayList<String> types = new ArrayList<>();
-        types.add("étel");
-        types.add("ital");
-        types.add("lakhatás");
-        types.add("utazás");
-        types.add("egyéb");
+        types.add("food");
+        types.add("drink");
+        types.add("rent");
+        types.add("travel");
+        types.add("other");
 
         Spinneradapter = new ArrayAdapter<>(AddTransactionActivity.
                 this,android.R.layout.simple_list_item_1,types);
@@ -121,8 +121,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                 if(nameEditText.getText().toString()==""||dateTextView.getText().toString()==""||
-                         mDisplayPlace.getText().toString()==""||typeSpinner.getSelectedItem().toString()==""){
+                 if(nameEditText.getText().toString()==""||dateTextView.getText().toString()==""||typeSpinner.getSelectedItem().toString()==""){
                      throw new NullPointerException();
                  }
                 Transaction transaction = new Transaction();
