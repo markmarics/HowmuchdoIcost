@@ -48,7 +48,7 @@ public class AddTransactionActivity extends AppCompatActivity {
 
     private TextView dateTextView, mDisplayPlace;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> Spinneradapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,22 +56,23 @@ public class AddTransactionActivity extends AppCompatActivity {
         //dateTextView = (TextView) findViewById(R.id.textviewDate);
         dateTextView = findViewById(R.id.textviewDate);
         mDisplayPlace = findViewById(R.id.textviewPlace);
-
     //    typeEditText = findViewById(R.id.editTextType);
         typeSpinner = findViewById(R.id.spinnerAllTypes);
         nameEditText = findViewById(R.id.editTextName);
         priceEditText = findViewById(R.id.editTextPrice);
         saveButton = findViewById(R.id.saveButton);
-        newCategoryButton = findViewById(R.id.newCategoryButton);
         dbAdapter = new DBAdapter(AddTransactionActivity.this);
-        dbAdapter.addType("kaja");
-        dbAdapter.addType("pia");
-   /*     if(dbAdapter.loadTypes()!=null){
-            adapter = new ArrayAdapter<String>(AddTransactionActivity.this,
-                    android.R.layout.simple_spinner_item, dbAdapter.loadTypes());
-            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-            typeSpinner.setAdapter(adapter);
-        }*/
+        ArrayList<String> types = new ArrayList<>();
+        types.add("étel");
+        types.add("ital");
+        types.add("lakhatás");
+        types.add("utazás");
+        types.add("egyéb");
+
+        Spinneradapter = new ArrayAdapter<>(AddTransactionActivity.
+                this,android.R.layout.simple_list_item_1,types);
+        Spinneradapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(Spinneradapter);
 
         dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +121,10 @@ public class AddTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
+                 if(nameEditText.getText().toString()==""||dateTextView.getText().toString()==""||
+                         mDisplayPlace.getText().toString()==""||typeSpinner.getSelectedItem().toString()==""){
+                     throw new NullPointerException();
+                 }
                 Transaction transaction = new Transaction();
                 transaction.setName(nameEditText.getText().toString());
                 transaction.setDate(dateTextView.getText().toString());
@@ -127,57 +132,21 @@ public class AddTransactionActivity extends AppCompatActivity {
                 transaction.setRating(3);
                 transaction.setType(typeSpinner.getSelectedItem().toString());
                 transaction.setPrice(Integer.parseInt(priceEditText.getText().toString()));
-
-
-
                 if ( dbAdapter.addTransaction(transaction)){
-                    Toast.makeText(AddTransactionActivity.this, "done", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTransactionActivity.this, "Sikeres!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(AddTransactionActivity.this, "szar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTransactionActivity.this, "Valami nem jó!", Toast.LENGTH_SHORT).show();
                 }
+                }
+                catch (NullPointerException e){
+                    Toast.makeText(AddTransactionActivity.this, "Mindent tölts ki!", Toast.LENGTH_SHORT).show();
                 }
                 catch (NumberFormatException e){
-                    Toast.makeText(AddTransactionActivity.this, "aggyá meg mindig valamit", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTransactionActivity.this, "Mindent tölts ki!", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
-
-
-        newCategoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddTransactionActivity.this);
-                builder.setTitle("New category");
-                builder.setMessage("New category name: ");
-                final EditText input = new EditText(AddTransactionActivity.this);
-                builder.setView(input);
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                   //     adapter.add(input.getText().toString());
-
-                        if (dbAdapter.addType(input.getText().toString())) {
-
-                            adapter = new ArrayAdapter<String>(AddTransactionActivity.this,
-                                    android.R.layout.simple_spinner_item, dbAdapter.loadTypes());
-                            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-
-                            typeSpinner.setAdapter(adapter);
-                        }
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-
-            }
-        });
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

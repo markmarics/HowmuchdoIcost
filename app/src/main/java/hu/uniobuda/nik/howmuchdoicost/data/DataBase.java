@@ -151,10 +151,9 @@ public class DataBase {
 
             db.execSQL("CREATE TABLE " + TABLE_NAME_TYPES + " (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "type TEXT UNIQUE" +
+                    "type TEXT" +
                     ")"
             );
-
         }
 
         @Override
