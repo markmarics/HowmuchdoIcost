@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     EditText priceEditText;
     Button saveButton, newCategoryButton;
     DBAdapter dbAdapter;
+    RatingBar ratingBar;
 
     private TextView dateTextView, mDisplayPlace;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -61,6 +63,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.editTextName);
         priceEditText = findViewById(R.id.editTextPrice);
         saveButton = findViewById(R.id.saveButton);
+        ratingBar = findViewById(R.id.rating);
         dbAdapter = new DBAdapter(AddTransactionActivity.this);
         ArrayList<String> types = new ArrayList<>();
         types.add("food");
@@ -128,7 +131,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 transaction.setName(nameEditText.getText().toString());
                 transaction.setDate(dateTextView.getText().toString());
                 transaction.setPlace(mDisplayPlace.getText().toString());
-                transaction.setRating(3);
+                transaction.setRating(Math.round(ratingBar.getRating()));
                 transaction.setType(typeSpinner.getSelectedItem().toString());
                 transaction.setPrice(Integer.parseInt(priceEditText.getText().toString()));
                 if ( dbAdapter.addTransaction(transaction)){

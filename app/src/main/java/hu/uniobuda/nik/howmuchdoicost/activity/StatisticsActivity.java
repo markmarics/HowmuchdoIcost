@@ -1,10 +1,15 @@
 package hu.uniobuda.nik.howmuchdoicost.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,7 +32,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         ArrayList<String> output = new ArrayList<>();
         for (Transaction item : translist){
-            output.add(item.getName() + " " + item.getDate());
+            output.add(item.getName() + " (" + item.getDate()+ ") " + item.getRating());
         }
 
         adapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,output);
