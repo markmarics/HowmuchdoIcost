@@ -41,7 +41,8 @@ public class DBAdapter {
         ArrayList<Transaction> tempTrans = new ArrayList<>();
         dbTransactions.moveToFirst();
         while (!dbTransactions.isAfterLast()){
-            tempTrans.add(new Transaction(dbTransactions.getString(dbTransactions.getColumnIndex("type")),
+            tempTrans.add(new Transaction(dbTransactions.getInt(dbTransactions.getColumnIndex("id")),
+                    dbTransactions.getString(dbTransactions.getColumnIndex("type")),
                     dbTransactions.getString(dbTransactions.getColumnIndex("name")),
                     dbTransactions.getDouble(dbTransactions.getColumnIndex("price")),
                     dbTransactions.getString(dbTransactions.getColumnIndex("date")),

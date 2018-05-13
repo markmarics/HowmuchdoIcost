@@ -13,8 +13,8 @@ public class Transaction {
     private int rating;
     private String comment;
 
-    public Transaction(String type, String name, double price, String date, String place, int rating, String comment) {
-     //   this.id = id;
+    public Transaction(int id, String type, String name, double price, String date, String place, int rating, String comment) {
+        this.id = id;
         this.type = type;
         this.name = name;
         this.price = price;
