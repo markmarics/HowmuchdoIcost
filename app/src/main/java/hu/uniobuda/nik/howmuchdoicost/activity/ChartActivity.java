@@ -7,11 +7,16 @@ import android.os.Bundle;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 import hu.uniobuda.nik.howmuchdoicost.R;
 import hu.uniobuda.nik.howmuchdoicost.adapters.DBAdapter;
@@ -24,20 +29,31 @@ public class ChartActivity extends AppCompatActivity {
     DBAdapter db;
     PieChart pieChart;
    // private String[] yData;
-    private int[] yData=new int[5];
-    private String[] xData= {"food", "drink","rent","travel","other"};
+    private double[] yData;
+    private ArrayList<String> xData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+        xData=new ArrayList<>();
+        db = new DBAdapter(this);
         ArrayList<Transaction> transactionslist = db.loadTransactions();
-        for (int i =0;i<transactionslist.size();i++){
-            for (int j =0;i<xData.length;i++){
-                if(xData[j]==transactionslist.get(i).getType()){
-                    yData[j]+=transactionslist.get(i).getPrice();
+        for (Transaction item:transactionslist
+             ) {
+            if(!xData.contains(item.getType())){
+                xData.add(item.getType());
+            }
+        }
+        yData=new double[xData.size()];
+        for(int i=0;i<xData.size();i++){
+            for (Transaction item:transactionslist
+                 ) {
+                if(xData.get(i).equals(item.getType())){
+                    yData[i]+=item.getPrice();
                 }
             }
         }
+
         pieChart = (PieChart) findViewById(R.id.pieChart);
 
       //  pieChart.setDescription();
@@ -49,18 +65,36 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.setDrawEntryLabels(true);
 
         addDataSet(pieChart);
+
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
     }
 
     private void addDataSet(PieChart pieChart) {
 
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.MAGENTA);
+        colors.add(Color.BLUE);
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.CYAN);
         for (int i =0;i<yData.length;i++){
-            yEntrys.add(new PieEntry(yData[i],i));
+            yEntrys.add(new PieEntry(((int) yData[i]),i));
         }
 
-        for (int i =1;i<xData.length;i++){
-            xEntrys.add(xData[i]);
+        for (int i =1;i<xData.toArray().length;i++){
+            xEntrys.add(xData.get(i));
         }
 
 
@@ -68,12 +102,6 @@ public class ChartActivity extends AppCompatActivity {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
 
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.MAGENTA);
-        colors.add(Color.BLUE);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.CYAN);
 
         pieDataSet.setColors(colors);
 

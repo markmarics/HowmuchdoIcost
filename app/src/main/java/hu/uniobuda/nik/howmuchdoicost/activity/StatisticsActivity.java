@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,20 +22,20 @@ public class StatisticsActivity extends AppCompatActivity {
 
     ListView transactionListView;
     ArrayAdapter<String> adapter;
-    //Button chartButton;
+    Button chartButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         transactionListView = findViewById(R.id.transactionListView);
-       /*  chartButton=findViewById(R.id.chartbutton);
+        chartButton=findViewById(R.id.chartbutton);
             chartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StatisticsActivity.this,ChartActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
         DBAdapter db = new DBAdapter(this);
         ArrayList<Transaction> translist = db.loadTransactions();
 
