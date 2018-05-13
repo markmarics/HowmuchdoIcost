@@ -15,7 +15,7 @@ import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
 public class StatisticsActivity extends AppCompatActivity {
 
     ListView transactionListView;
-    ArrayAdapter<Transaction> adapter;
+    ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +23,14 @@ public class StatisticsActivity extends AppCompatActivity {
         transactionListView = findViewById(R.id.transactionListView);
 
         DBAdapter db = new DBAdapter(this);
-        ArrayList translist = db.loadTransactions();
+        ArrayList<Transaction> translist = db.loadTransactions();
 
-        adapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,translist);
+        ArrayList<String> output = new ArrayList<>();
+        for (Transaction item : translist){
+            output.add(item.getName() + " " + item.getDate());
+        }
+
+        adapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,output);
         transactionListView.setAdapter(adapter);
     }
 
