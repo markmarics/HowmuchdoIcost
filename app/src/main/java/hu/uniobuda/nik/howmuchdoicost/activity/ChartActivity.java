@@ -3,7 +3,9 @@ package hu.uniobuda.nik.howmuchdoicost.activity;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -18,6 +20,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
+import hu.uniobuda.nik.howmuchdoicost.MainActivity;
 import hu.uniobuda.nik.howmuchdoicost.R;
 import hu.uniobuda.nik.howmuchdoicost.adapters.DBAdapter;
 import hu.uniobuda.nik.howmuchdoicost.models.Transaction;
@@ -54,13 +57,15 @@ public class ChartActivity extends AppCompatActivity {
             }
         }
 
-        pieChart = (PieChart) findViewById(R.id.pieChart);
+        pieChart = findViewById(R.id.pieChart);
 
-      //  pieChart.setDescription();
+        Description d = new Description();
+        d.setText("Expenses by Type");
+        pieChart.setDescription(d);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Költségek");
+        pieChart.setCenterText("Expenses");
         pieChart.setCenterTextSize(10);
         pieChart.setDrawEntryLabels(true);
 
@@ -69,8 +74,17 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-
+                int pos=0;
+            for (int i=0;i<yData.length;i++){
+                    if(yData[i] == e.getY()){
+                        pos=i;
+                        break;
+                    }
+                }
+                String type = xData.get(pos);
+                Toast.makeText(ChartActivity.this,"Type: "+type+"\n"+"Expense: "+Float.toString(e.getY()),Toast.LENGTH_LONG).show();
             }
+
 
             @Override
             public void onNothingSelected() {
@@ -98,13 +112,10 @@ public class ChartActivity extends AppCompatActivity {
         }
 
 
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Költségek");
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "EXPENSES");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
-
-
         pieDataSet.setColors(colors);
-
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
